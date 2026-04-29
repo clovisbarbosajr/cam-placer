@@ -177,6 +177,16 @@ function Ground() {
         <meshStandardMaterial map={asphaltTexture} color="#52575c" roughness={0.92} />
       </mesh>
 
+      {/* Front garden strips like the reference photos: fence -> house gives scale */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-34, 0.025, -35.4]} receiveShadow>
+        <planeGeometry args={[12, 12.5]} />
+        <meshStandardMaterial color="#315b2d" roughness={0.95} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[34, 0.025, -35.4]} receiveShadow>
+        <planeGeometry args={[12, 12.5]} />
+        <meshStandardMaterial color="#315b2d" roughness={0.95} />
+      </mesh>
+
       {/* Side strips (gravel / packed dirt) between building and neighbors */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-23.6, 0.012, 0]} receiveShadow>
         <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
@@ -185,6 +195,12 @@ function Ground() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[23.6, 0.012, 0]} receiveShadow>
         <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
         <meshStandardMaterial color="#6d6258" roughness={0.95} />
+      </mesh>
+
+      {/* Rear yard and rear reference building so camera POVs never start on empty grass */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 43.8]} receiveShadow>
+        <planeGeometry args={[58, 20]} />
+        <meshStandardMaterial color="#355f31" roughness={0.95} />
       </mesh>
     </group>
   );
