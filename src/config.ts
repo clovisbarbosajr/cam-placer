@@ -85,9 +85,9 @@ export const siteConfig = {
     },
   },
   environment: {
-    front_perimeter_fence: { z: -37.4, width_ft: 58.0, height_ft: 4.76, gate_width_ft: 26.0 },
+    front_perimeter_fence: { z: -42.0, width_ft: 80.0, height_ft: 4.76, gate_width_ft: 38.0 },
     front_obstacles: [
-      { id: "street-tree", type: "tree", position: [-22.64, 0, -40.03] as [number, number, number], radius_ft: 7.87, height_ft: 27.89 },
+      { id: "front-yard-tree", type: "tree", position: [22.0, 0, -35.0] as [number, number, number], radius_ft: 6.8, height_ft: 27.89 },
     ],
     neighbors: [
       { id: "west-neighbor", color: "gray", position: [-30.18, 10.5, -1.31] as [number, number, number], size: [14.44, 21.0, 51.18] as [number, number, number] },
@@ -105,15 +105,16 @@ export const siteConfig = {
       length_ft: 200,
     },
     driveway: {
-      z_min: -37.4,
+      z_min: -42.0,
       z_max: -28.2,
-      width_ft: 48.0,
+      width_ft: 60.0,
     },
     pedestrians: [
       { id: "ped-walker", type: "person", position: [11.48, 0, -44.29], rotation_y: -1.2, color: "#3a5a7a", variant: "walker" },
       { id: "ped-dog", type: "dog", position: [15.09, 0, -43.31], rotation_y: -1.2, color: "#a07a4a" },
       { id: "ped-standing", type: "person", position: [-3.94, 0, -34.78], rotation_y: 0.4, color: "#7a3a3a", variant: "standing" },
-      { id: "car-driveway", type: "car", position: [-8.53, 0, -33.14], rotation_y: 0, color: "#2c3e50" },
+      { id: "car-driveway-left", type: "car", position: [-11.5, 0, -34.6], rotation_y: 0, color: "#2c3e50" },
+      { id: "car-driveway-right", type: "car", position: [8.8, 0, -34.2], rotation_y: 0, color: "#42515f" },
     ] as PedestrianConfig[],
   },
   cameras: [
@@ -121,8 +122,8 @@ export const siteConfig = {
     {
       id: "CAM-01",
       target: "West side corridor (mid-wall)",
-      position: [-17.7, 15.75, 0] as [number, number, number],
-      rotation: { pitch: -34, yaw: -74 },
+      position: [-18.35, 15.75, 0] as [number, number, number],
+      rotation: { pitch: -31, yaw: 0 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 45,
       lens_mm: 2.8,
@@ -132,8 +133,8 @@ export const siteConfig = {
     {
       id: "CAM-02",
       target: "East side corridor (tight gap)",
-      position: [17.7, 15.75, 0] as [number, number, number],
-      rotation: { pitch: -34, yaw: 74 },
+      position: [18.35, 15.75, 0] as [number, number, number],
+      rotation: { pitch: -31, yaw: 180 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 45,
       lens_mm: 2.8,
@@ -155,18 +156,18 @@ export const siteConfig = {
       id: "CAM-04",
       target: "Front gate, driveway, over garage",
       position: [9.19, 14.76, -28.2] as [number, number, number],
-      rotation: { pitch: -34, yaw: 0 },
-      fov_horizontal: 88,
-      frustum_max_distance_ft: 46,
-      lens_mm: 4,
+      rotation: { pitch: -39, yaw: 0 },
+      fov_horizontal: 102,
+      frustum_max_distance_ft: 55,
+      lens_mm: 2.8,
       install_note: "Right side over garage at 14.76 ft. 4mm captures faces clearly at vehicle entry (DORI Identify ~36 ft).",
     },
     // CAM-05 — Tree-mounted (replacing existing camera)
     {
       id: "CAM-05",
       target: "Tree-mounted overview (faces building)",
-      position: [-22.64, 18.04, -40.03] as [number, number, number],
-      rotation: { pitch: -28, yaw: 125 },
+      position: [22.0, 18.04, -35.0] as [number, number, number],
+      rotation: { pitch: -30, yaw: 108 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 58,
       lens_mm: 2.8,

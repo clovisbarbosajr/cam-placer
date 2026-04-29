@@ -177,6 +177,16 @@ function Ground() {
         <meshStandardMaterial map={asphaltTexture} color="#52575c" roughness={0.92} />
       </mesh>
 
+      {/* Front garden strips like the reference photos: fence -> house gives scale */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-34, 0.025, -35.4]} receiveShadow>
+        <planeGeometry args={[12, 12.5]} />
+        <meshStandardMaterial color="#315b2d" roughness={0.95} />
+      </mesh>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[34, 0.025, -35.4]} receiveShadow>
+        <planeGeometry args={[12, 12.5]} />
+        <meshStandardMaterial color="#315b2d" roughness={0.95} />
+      </mesh>
+
       {/* Side strips (gravel / packed dirt) between building and neighbors */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-23.6, 0.012, 0]} receiveShadow>
         <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
@@ -185,6 +195,12 @@ function Ground() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[23.6, 0.012, 0]} receiveShadow>
         <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
         <meshStandardMaterial color="#6d6258" roughness={0.95} />
+      </mesh>
+
+      {/* Rear yard and rear reference building so camera POVs never start on empty grass */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 43.8]} receiveShadow>
+        <planeGeometry args={[58, 20]} />
+        <meshStandardMaterial color="#355f31" roughness={0.95} />
       </mesh>
     </group>
   );
@@ -204,6 +220,31 @@ function Fence() {
       {gateWidth > 0 && <Line points={[[-halfGate, -fence.height_ft / 2, 0.06], [halfGate, -fence.height_ft / 2, 0.06]]} color="#d7e0e6" lineWidth={2} transparent opacity={0.75} />}
       {fenceSections.flatMap(([start, end]) => Array.from({ length: Math.max(3, Math.ceil((end - start) / 1.8)) }, (_, i) => start + i * 1.8).map((x) => <Line key={`a-${start}-${x}`} points={[[x, -fence.height_ft / 2, 0.03], [Math.min(x + 1.8, end), fence.height_ft / 2, 0.03]]} color="#9da9b0" lineWidth={0.6} />))}
       {fenceSections.flatMap(([start, end]) => Array.from({ length: Math.max(3, Math.ceil((end - start) / 1.8)) }, (_, i) => start + i * 1.8).map((x) => <Line key={`b-${start}-${x}`} points={[[x, fence.height_ft / 2, 0.04], [Math.min(x + 1.8, end), -fence.height_ft / 2, 0.04]]} color="#9da9b0" lineWidth={0.6} />))}
+    </group>
+  );
+}
+
+function BoundaryGuides() {
+  const frontFence = siteConfig.environment.front_perimeter_fence;
+  const rearZ = HALF_D + 26;
+  const sideXs = [-frontFence.width_ft / 2, frontFence.width_ft / 2];
+  return (
+    <group>
+      {sideXs.map((x) => (
+        <group key={x} position={[x, frontFence.height_ft / 2, (frontFence.z + rearZ) / 2]}>
+          <Line points={[[0, frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#c7d0d6" lineWidth={1.6} />
+          <Line points={[[0, -frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#9da9b0" lineWidth={0.8} transparent opacity={0.75} />
+          <Line points={[[0, frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, -frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#9da9b0" lineWidth={0.8} transparent opacity={0.75} />
+        </group>
+      ))}
+      <group position={[0, 7.1, rearZ]}>
+        <Box args={[54, 14.2, 10]} castShadow receiveShadow>
+          <meshStandardMaterial color="#8b938f" roughness={0.86} transparent opacity={0.68} />
+        </Box>
+        <Box args={[24, 7.2, 0.22]} position={[0, -2.5, -5.15]}>
+          <meshStandardMaterial color="#b7c0c5" roughness={0.55} />
+        </Box>
+      </group>
     </group>
   );
 }
@@ -444,6 +485,7 @@ function Environment() {
     <group>
       <Ground />
       <Fence />
+      <BoundaryGuides />
       {siteConfig.environment.front_obstacles.map((tree) => <Tree key={tree.id} tree={tree} />)}
       {siteConfig.environment.neighbors.map((neighbor) => <NeighborHouse key={neighbor.id} neighbor={neighbor} transparent={makeNeighborsTransparent} />)}
       <Pedestrians />
@@ -525,7 +567,7 @@ function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; se
     <group position={camera.position} rotation={cameraEuler(camera)} onClick={(event) => { event.stopPropagation(); selectCamera(camera.id, "pov"); }}>
       {/* Hikvision bullet body */}
       <Box args={[1.25, 0.82, 2.03]} position={[0, 0, -0.59]} castShadow>
-        <meshStandardMaterial color={selected ? "#ffd166" : "#e9eef2"} roughness={0.3} metalness={0.18} />
+        <meshStandardMaterial color={selected ? "#38bdf8" : "#e9eef2"} roughness={0.3} metalness={0.18} />
       </Box>
       {/* Lens housing */}
       <Box args={[0.52, 0.52, 0.66]} position={[0, 0, -1.90]}>
@@ -533,10 +575,10 @@ function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; se
       </Box>
       {/* Mounting arm */}
       <Box args={[0.18, 0.4, 0.18]} position={[0, 0.6, 0.3]}>
-        <meshStandardMaterial color={selected ? "#ffd166" : "#dde2e6"} roughness={0.4} />
+        <meshStandardMaterial color={selected ? "#38bdf8" : "#dde2e6"} roughness={0.4} />
       </Box>
       <Html position={[0, 1.48, 0]} center distanceFactor={40}>
-        <span className={`rounded-md border px-2 py-1 text-xs font-semibold shadow-sm ${selected ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
+        <span className={`whitespace-nowrap rounded-md border px-2 py-1 text-xs font-bold shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
       </Html>
     </group>
   );
@@ -589,6 +631,7 @@ function SceneContents() {
   const selectedId = useCameraStore((state) => state.selectedCameraId);
   const viewMode = useCameraStore((state) => state.viewMode);
   const showAllFrustums = useCameraStore((state) => state.showAllFrustums);
+  const showSelectedFrustum = useCameraStore((state) => state.showSelectedFrustum);
   const controlsRef = useRef(null);
 
   return (
@@ -603,7 +646,7 @@ function SceneContents() {
       <Building />
       <Environment />
 
-      {viewMode === "orbit" && cameras.map((camera) => {
+      {viewMode === "orbit" && (showAllFrustums || showSelectedFrustum) && cameras.map((camera) => {
         if (showAllFrustums) {
           return <Frustum key={`${camera.id}-frustum`} camera={camera} dim={camera.id !== selectedId} />;
         }
@@ -612,7 +655,7 @@ function SceneContents() {
         }
         return null;
       })}
-      {viewMode === "orbit" && cameras.filter((c) => c.id === selectedId).map((c) => <CoverageGroundFootprint key={`${c.id}-footprint`} camera={c} />)}
+      {viewMode === "orbit" && showSelectedFrustum && cameras.filter((c) => c.id === selectedId).map((c) => <CoverageGroundFootprint key={`${c.id}-footprint`} camera={c} />)}
 
       {cameras.map((camera) => {
         const isActive = camera.id === selectedId;

@@ -8,6 +8,7 @@ type CameraStore = {
   selectedCameraId: string;
   viewMode: ViewMode;
   showAllFrustums: boolean;
+  showSelectedFrustum: boolean;
   selectCamera: (id: string, mode?: ViewMode) => void;
   setViewMode: (mode: ViewMode) => void;
   toggleShowAllFrustums: () => void;
@@ -24,10 +25,11 @@ const cloneCameras = (): CameraConfig[] =>
 
 export const useCameraStore = create<CameraStore>((set, get) => ({
   cameras: cloneCameras(),
-  selectedCameraId: siteConfig.cameras[0].id,
+  selectedCameraId: "CAM-04",
   viewMode: "orbit",
   showAllFrustums: false,
-  selectCamera: (id, mode) => set({ selectedCameraId: id, viewMode: mode ?? get().viewMode }),
+  showSelectedFrustum: false,
+  selectCamera: (id, mode) => set({ selectedCameraId: id, viewMode: mode ?? get().viewMode, showSelectedFrustum: true }),
   setViewMode: (mode) => set({ viewMode: mode }),
   toggleShowAllFrustums: () => set((state) => ({ showAllFrustums: !state.showAllFrustums })),
   updateCamera: (id, patch) =>
