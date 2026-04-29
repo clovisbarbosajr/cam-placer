@@ -581,8 +581,8 @@ function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; se
       <Box args={[0.18, 0.4, 0.18]} position={[0, 0.6, 0.3]}>
         <meshStandardMaterial color={selected ? "#38bdf8" : "#dde2e6"} roughness={0.4} />
       </Box>
-      <Html position={[0, 1.48, 0]} center distanceFactor={40}>
-        <span className={`inline-flex min-w-14 items-center justify-center whitespace-nowrap rounded-md border px-2 py-1 text-xs font-black leading-none shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
+      <Html position={[0, 1.48, 0]} center distanceFactor={32} sprite zIndexRange={[20, 0]}>
+        <span className={`inline-flex h-5 min-w-[58px] select-none items-center justify-center whitespace-nowrap rounded-md border px-2 font-mono text-[10px] font-black uppercase leading-none tracking-tight shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/95 text-foreground"}`}>{camera.id}</span>
       </Html>
     </group>
   );
@@ -667,8 +667,11 @@ function SceneContents() {
         return <SecurityCamera key={camera.id} camera={camera} selected={isActive} hidden={hide} />;
       })}
 
-      <Html position={[0, 0.3, -50.5]} center>
-        <div className="rounded-full border border-border bg-card/90 px-3 py-1 text-xs font-bold text-foreground shadow-sm">N / Front — Dewey St</div>
+      <Html position={[0, 0.3, -50.5]} center sprite zIndexRange={[10, 0]}>
+        <div className="inline-flex min-w-[92px] flex-col items-center rounded-full border border-border bg-card/95 px-3 py-2 font-mono text-[11px] font-black uppercase leading-tight text-foreground shadow-sm">
+          <span>N / Front</span>
+          <span>Dewey St</span>
+        </div>
       </Html>
     </>
   );
