@@ -225,15 +225,21 @@ function Fence() {
 function BoundaryGuides() {
   const frontFence = siteConfig.environment.front_perimeter_fence;
   const rearZ = HALF_D + 26;
-  const sideXs = [-frontFence.width_ft / 2, frontFence.width_ft / 2];
+  const sideLines = [siteConfig.environment.side_property_lines.west_x, siteConfig.environment.side_property_lines.east_x];
   return (
     <group>
-      {sideXs.map((x) => (
+      {sideLines.map((x) => (
         <group key={x} position={[x, frontFence.height_ft / 2, (frontFence.z + rearZ) / 2]}>
           <Line points={[[0, frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#c7d0d6" lineWidth={1.6} />
           <Line points={[[0, -frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#9da9b0" lineWidth={0.8} transparent opacity={0.75} />
           <Line points={[[0, frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, -frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#9da9b0" lineWidth={0.8} transparent opacity={0.75} />
         </group>
+      ))}
+      {sideLines.map((x) => (
+        <mesh key={`owned-side-${x}`} rotation={[-Math.PI / 2, 0, 0]} position={[x / 2, 0.055, -3.0]} receiveShadow>
+          <planeGeometry args={[Math.abs(x) - HALF_W, BUILDING.depth_ft + 48]} />
+          <meshStandardMaterial color="#587a4a" roughness={0.95} transparent opacity={0.18} depthWrite={false} />
+        </mesh>
       ))}
       <group position={[0, 7.1, rearZ]}>
         <Box args={[54, 14.2, 10]} castShadow receiveShadow>
