@@ -82,8 +82,8 @@ function RightSidebar() {
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 lg:gap-3">
         <SliderControl label="Height Y" value={camera.position[1]} min={7} max={31} step={0.1} suffix=" ft" onChange={updatePositionY} />
         <SliderControl label="Yaw" value={camera.rotation.yaw} min={-180} max={180} suffix="°" onChange={updateYaw} />
-        <SliderControl label="Pitch" value={camera.rotation.pitch} min={-65} max={18} suffix="°" onChange={updatePitch} />
-        <SliderControl label="FOV" value={camera.fov_horizontal} min={35} max={120} suffix="°" onChange={updateFov} />
+        <SliderControl label="Pitch" value={camera.rotation.pitch} min={-85} max={18} suffix="°" onChange={updatePitch} />
+        <SliderControl label="FOV" value={camera.fov_horizontal} min={35} max={150} suffix="°" onChange={updateFov} />
       </div>
       <div className="mt-3 grid gap-1 rounded-lg border border-border bg-secondary/40 p-2 font-mono text-[10px] text-muted-foreground lg:mt-4 lg:p-3 lg:text-xs">
         <span>pos: [{camera.position.map((value) => value.toFixed(2)).join(", ")}] ft</span>
