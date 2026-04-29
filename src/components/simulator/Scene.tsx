@@ -128,6 +128,7 @@ function Ground() {
   const driveway = siteConfig.environment.driveway;
   const drivewayCenterZ = (driveway.z_min + driveway.z_max) / 2;
   const drivewayDepth = driveway.z_max - driveway.z_min;
+  const parkingLines = [-17, 0, 17];
 
   const asphaltTexture = useMemo(() => {
     const size = 256;
@@ -171,33 +172,30 @@ function Ground() {
         <meshStandardMaterial color="#a8aaa6" roughness={0.85} />
       </mesh>
 
-      {/* Driveway (asphalt area inside the front fence) */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, drivewayCenterZ]} receiveShadow>
-        <planeGeometry args={[driveway.width_ft, drivewayDepth]} />
-        <meshStandardMaterial map={asphaltTexture} color="#52575c" roughness={0.92} />
-      </mesh>
-
-      {/* Front garden strips like the reference photos: fence -> house gives scale */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-34, 0.025, -35.4]} receiveShadow>
-        <planeGeometry args={[12, 12.5]} />
-        <meshStandardMaterial color="#315b2d" roughness={0.95} />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[34, 0.025, -35.4]} receiveShadow>
-        <planeGeometry args={[12, 12.5]} />
-        <meshStandardMaterial color="#315b2d" roughness={0.95} />
-      </mesh>
-
       {/* Side strips (gravel / packed dirt) between building and neighbors */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-23.6, 0.012, 0]} receiveShadow>
-        <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
+        <planeGeometry args={[11.5, BUILDING.depth_ft]} />
         <meshStandardMaterial color="#6d6258" roughness={0.95} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[23.6, 0.012, 0]} receiveShadow>
-        <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
+        <planeGeometry args={[11.5, BUILDING.depth_ft]} />
         <meshStandardMaterial color="#6d6258" roughness={0.95} />
       </mesh>
 
+      {/* Wide two-car parking pad: house first, then cars, then gate, then sidewalk/street */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, drivewayCenterZ]} receiveShadow>
+        <planeGeometry args={[driveway.width_ft, drivewayDepth]} />
+        <meshStandardMaterial map={asphaltTexture} color="#52575c" roughness={0.92} />
+      </mesh>
+      <Line points={[[-driveway.width_ft / 2, 0.09, driveway.z_min], [driveway.width_ft / 2, 0.09, driveway.z_min], [driveway.width_ft / 2, 0.09, driveway.z_max], [-driveway.width_ft / 2, 0.09, driveway.z_max], [-driveway.width_ft / 2, 0.09, driveway.z_min]]} color="#d7e0e6" lineWidth={1.8} transparent opacity={0.86} />
+      {parkingLines.map((x) => <Line key={x} points={[[x, 0.1, driveway.z_min + 2], [x, 0.1, driveway.z_max - 1.5]]} color="#e4e8dc" lineWidth={1.4} transparent opacity={0.92} />)}
+
       {/* Rear yard and rear reference building so camera POVs never start on empty grass */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.045, 36.4]} receiveShadow>
+        <planeGeometry args={[42, 13]} />
+        <meshStandardMaterial color="#8f8b82" roughness={0.88} />
+      </mesh>
+      <Line points={[[-21, 0.1, 29.9], [21, 0.1, 29.9], [21, 0.1, 42.9], [-21, 0.1, 42.9], [-21, 0.1, 29.9]]} color="#d7e0e6" lineWidth={1.3} transparent opacity={0.72} />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 43.8]} receiveShadow>
         <planeGeometry args={[58, 20]} />
         <meshStandardMaterial color="#355f31" roughness={0.95} />
@@ -578,7 +576,7 @@ function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; se
         <meshStandardMaterial color={selected ? "#38bdf8" : "#dde2e6"} roughness={0.4} />
       </Box>
       <Html position={[0, 1.48, 0]} center distanceFactor={40}>
-        <span className={`whitespace-nowrap rounded-md border px-2 py-1 text-xs font-bold shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
+        <span className={`inline-flex min-w-14 items-center justify-center whitespace-nowrap rounded-md border px-2 py-1 text-xs font-black leading-none shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
       </Html>
     </group>
   );
