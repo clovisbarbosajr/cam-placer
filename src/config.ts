@@ -121,9 +121,9 @@ export const siteConfig = {
     // CAM-01 — West side wall (mid-wall, perpendicular)
     {
       id: "CAM-01",
-      target: "West side corridor (mid-wall)",
+      target: "Left side corridor — both ends + ground",
       position: [-18.35, 15.75, 0] as [number, number, number],
-      rotation: { pitch: -31, yaw: 0 },
+      rotation: { pitch: -34, yaw: 90 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 45,
       lens_mm: 2.8,
@@ -132,9 +132,9 @@ export const siteConfig = {
     // CAM-02 — East side wall (mid-wall, perpendicular, tight gap)
     {
       id: "CAM-02",
-      target: "East side corridor (tight gap)",
+      target: "Right side corridor — both ends + ground",
       position: [18.35, 15.75, 0] as [number, number, number],
-      rotation: { pitch: -31, yaw: 180 },
+      rotation: { pitch: -34, yaw: -90 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 45,
       lens_mm: 2.8,
@@ -144,19 +144,19 @@ export const siteConfig = {
     {
       id: "CAM-03",
       target: "Rear yard + service door",
-      position: [-4.92, 14.76, 28.2] as [number, number, number],
-      rotation: { pitch: -38, yaw: 180 },
-      fov_horizontal: 88,
-      frustum_max_distance_ft: 42,
-      lens_mm: 4,
+      position: [0, 14.76, 28.2] as [number, number, number],
+      rotation: { pitch: -36, yaw: 180 },
+      fov_horizontal: 102,
+      frustum_max_distance_ft: 58,
+      lens_mm: 2.8,
       install_note: "Offset to cover service door at x=-13.78 ft. 4mm lens for facial recognition at the door.",
     },
     // CAM-04 — Front, over the garage door (right side)
     {
       id: "CAM-04",
       target: "Front gate, driveway, over garage",
-      position: [9.19, 14.76, -28.2] as [number, number, number],
-      rotation: { pitch: -39, yaw: 0 },
+      position: [0, 16.0, -28.2] as [number, number, number],
+      rotation: { pitch: -38, yaw: 0 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 55,
       lens_mm: 2.8,
@@ -166,8 +166,8 @@ export const siteConfig = {
     {
       id: "CAM-05",
       target: "Tree-mounted overview (faces building)",
-      position: [22.0, 18.04, -35.0] as [number, number, number],
-      rotation: { pitch: -30, yaw: 108 },
+      position: [31.0, 18.04, -50.5] as [number, number, number],
+      rotation: { pitch: -27, yaw: 145 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 58,
       lens_mm: 2.8,
