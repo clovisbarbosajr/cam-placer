@@ -85,9 +85,9 @@ export const siteConfig = {
     },
   },
   environment: {
-    front_perimeter_fence: { z: -42.0, width_ft: 80.0, height_ft: 4.76, gate_width_ft: 38.0 },
+    front_perimeter_fence: { z: -57.0, width_ft: 86.0, height_ft: 4.76, gate_width_ft: 42.0 },
     front_obstacles: [
-      { id: "front-yard-tree", type: "tree", position: [22.0, 0, -35.0] as [number, number, number], radius_ft: 6.8, height_ft: 27.89 },
+      { id: "front-yard-tree", type: "tree", position: [31.0, 0, -50.5] as [number, number, number], radius_ft: 5.8, height_ft: 27.89 },
     ],
     neighbors: [
       { id: "west-neighbor", color: "gray", position: [-30.18, 10.5, -1.31] as [number, number, number], size: [14.44, 21.0, 51.18] as [number, number, number] },
@@ -100,21 +100,21 @@ export const siteConfig = {
       length_ft: 200,
     },
     sidewalk: {
-      z_center: -44.3,
+      z_center: -61.0,
       width_ft: 6,
       length_ft: 200,
     },
     driveway: {
-      z_min: -42.0,
+      z_min: -56.2,
       z_max: -28.2,
-      width_ft: 60.0,
+      width_ft: 68.0,
     },
     pedestrians: [
-      { id: "ped-walker", type: "person", position: [11.48, 0, -44.29], rotation_y: -1.2, color: "#3a5a7a", variant: "walker" },
-      { id: "ped-dog", type: "dog", position: [15.09, 0, -43.31], rotation_y: -1.2, color: "#a07a4a" },
-      { id: "ped-standing", type: "person", position: [-3.94, 0, -34.78], rotation_y: 0.4, color: "#7a3a3a", variant: "standing" },
-      { id: "car-driveway-left", type: "car", position: [-11.5, 0, -34.6], rotation_y: 0, color: "#2c3e50" },
-      { id: "car-driveway-right", type: "car", position: [8.8, 0, -34.2], rotation_y: 0, color: "#42515f" },
+      { id: "ped-walker", type: "person", position: [11.48, 0, -62.8], rotation_y: -1.2, color: "#3a5a7a", variant: "walker" },
+      { id: "ped-dog", type: "dog", position: [15.09, 0, -62.0], rotation_y: -1.2, color: "#a07a4a" },
+      { id: "ped-standing", type: "person", position: [-22.5, 0, -48.5], rotation_y: 0.4, color: "#7a3a3a", variant: "standing" },
+      { id: "car-driveway-left", type: "car", position: [-8.6, 0, -42.0], rotation_y: 0, color: "#2c3e50" },
+      { id: "car-driveway-right", type: "car", position: [8.6, 0, -42.0], rotation_y: 0, color: "#42515f" },
     ] as PedestrianConfig[],
   },
   cameras: [
