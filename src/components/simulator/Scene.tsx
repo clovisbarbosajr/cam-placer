@@ -631,6 +631,7 @@ function SceneContents() {
   const selectedId = useCameraStore((state) => state.selectedCameraId);
   const viewMode = useCameraStore((state) => state.viewMode);
   const showAllFrustums = useCameraStore((state) => state.showAllFrustums);
+  const showSelectedFrustum = useCameraStore((state) => state.showSelectedFrustum);
   const controlsRef = useRef(null);
 
   return (
@@ -645,7 +646,7 @@ function SceneContents() {
       <Building />
       <Environment />
 
-      {viewMode === "orbit" && cameras.map((camera) => {
+      {viewMode === "orbit" && (showAllFrustums || showSelectedFrustum) && cameras.map((camera) => {
         if (showAllFrustums) {
           return <Frustum key={`${camera.id}-frustum`} camera={camera} dim={camera.id !== selectedId} />;
         }
@@ -654,7 +655,7 @@ function SceneContents() {
         }
         return null;
       })}
-      {viewMode === "orbit" && cameras.filter((c) => c.id === selectedId).map((c) => <CoverageGroundFootprint key={`${c.id}-footprint`} camera={c} />)}
+      {viewMode === "orbit" && showSelectedFrustum && cameras.filter((c) => c.id === selectedId).map((c) => <CoverageGroundFootprint key={`${c.id}-footprint`} camera={c} />)}
 
       {cameras.map((camera) => {
         const isActive = camera.id === selectedId;
