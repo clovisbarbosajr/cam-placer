@@ -165,16 +165,6 @@ function Ground() {
         <meshStandardMaterial map={asphaltTexture} color="#4a4f55" roughness={0.92} />
       </mesh>
 
-      {/* Double yellow line */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, street.z_center - 0.5]}>
-        <planeGeometry args={[street.length_ft, 0.4]} />
-        <meshStandardMaterial color="#d4b54a" roughness={0.6} />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.025, street.z_center + 0.5]}>
-        <planeGeometry args={[street.length_ft, 0.4]} />
-        <meshStandardMaterial color="#d4b54a" roughness={0.6} />
-      </mesh>
-
       {/* Sidewalk */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, sidewalk.z_center]} receiveShadow>
         <planeGeometry args={[sidewalk.length_ft, sidewalk.width_ft]} />
@@ -236,10 +226,12 @@ function Tree({ tree }: { tree: typeof siteConfig.environment.front_obstacles[nu
   );
 }
 
-function NeighborHouse({ neighbor }: { neighbor: typeof siteConfig.environment.neighbors[number] }) {
+function NeighborHouse({ neighbor, transparent }: { neighbor: typeof siteConfig.environment.neighbors[number]; transparent: boolean }) {
   const [w, h, d] = neighbor.size;
   const baseColor = neighbor.color === "green" ? "#7a9479" : "#8a8d8f";
   const trim = "#e6e8e9";
+  const opacity = transparent ? 0.30 : 0.92;
+  const lineOpacity = transparent ? 0.22 : 0.55;
   const facingSign = neighbor.position[0] < 0 ? 1 : -1;
   const facingX = facingSign * (w / 2 + 0.08);
 
@@ -251,13 +243,13 @@ function NeighborHouse({ neighbor }: { neighbor: typeof siteConfig.environment.n
   return (
     <group position={neighbor.position}>
       <Box args={neighbor.size} castShadow receiveShadow>
-        <meshStandardMaterial color={baseColor} roughness={0.85} />
+        <meshStandardMaterial color={baseColor} roughness={0.85} transparent opacity={opacity} depthWrite={!transparent} />
       </Box>
 
       {/* Subtle siding lines on the side facing our building */}
       <group position={[facingX, 0, 0]} rotation={[0, facingSign > 0 ? Math.PI / 2 : -Math.PI / 2, 0]}>
         {Array.from({ length: 18 }, (_, i) => 0.82 + i * 1.05).filter((y) => y < h).map((y) => (
-          <Line key={`siding-${y}`} points={[[-d / 2 + 0.16, y - h / 2, 0.005], [d / 2 - 0.16, y - h / 2, 0.005]]} color={baseColor === "#7a9479" ? "#5f7a5e" : "#6f7274"} lineWidth={0.5} transparent opacity={0.55} />
+          <Line key={`siding-${y}`} points={[[-d / 2 + 0.16, y - h / 2, 0.005], [d / 2 - 0.16, y - h / 2, 0.005]]} color={baseColor === "#7a9479" ? "#5f7a5e" : "#6f7274"} lineWidth={0.5} transparent opacity={lineOpacity} />
         ))}
       </group>
 
@@ -446,12 +438,14 @@ function Pedestrians() {
 }
 
 function Environment() {
+  const viewMode = useCameraStore((state) => state.viewMode);
+  const makeNeighborsTransparent = viewMode === "orbit";
   return (
     <group>
       <Ground />
       <Fence />
       {siteConfig.environment.front_obstacles.map((tree) => <Tree key={tree.id} tree={tree} />)}
-      {siteConfig.environment.neighbors.map((neighbor) => <NeighborHouse key={neighbor.id} neighbor={neighbor} />)}
+      {siteConfig.environment.neighbors.map((neighbor) => <NeighborHouse key={neighbor.id} neighbor={neighbor} transparent={makeNeighborsTransparent} />)}
       <Pedestrians />
     </group>
   );
@@ -472,8 +466,8 @@ function Frustum({ camera, dim = false }: { camera: CameraConfig; dim?: boolean 
     [-halfW, halfH, -distance],
   ];
   const segments = [[0, 1], [1, 2], [2, 3], [3, 0]].map(([a, b]) => [corners[a], corners[b]]).flat() as [number, number, number][];
-  const color = dim ? "#7a6840" : "#ffc857";
-  const opacity = dim ? 0.35 : 0.95;
+  const color = dim ? "#4f6f7f" : "#38bdf8";
+  const opacity = dim ? 0.26 : 0.88;
   return (
     <group position={camera.position} rotation={cameraEuler(camera)}>
       {corners.map((corner, i) => (
@@ -521,7 +515,7 @@ function CoverageGroundFootprint({ camera }: { camera: CameraConfig }) {
   }, [camera, halfW, halfH, distance]);
 
   if (!points) return null;
-  return <Line points={points} color="#ffc857" lineWidth={2.2} transparent opacity={0.85} />;
+  return <Line points={points} color="#38bdf8" lineWidth={2.2} transparent opacity={0.78} />;
 }
 
 function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; selected: boolean; hidden: boolean }) {
