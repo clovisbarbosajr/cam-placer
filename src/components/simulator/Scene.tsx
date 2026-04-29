@@ -102,6 +102,29 @@ function SidingLines({ z, rear = false }: { z: number; rear?: boolean }) {
   );
 }
 
+function SideWindows({ side }: { side: "left" | "right" }) {
+  const x = side === "left" ? -HALF_W - 0.08 : HALF_W + 0.08;
+  const rotationY = side === "left" ? -Math.PI / 2 : Math.PI / 2;
+  const windows = [
+    { z: -14.0, y: 14.9 },
+    { z: 14.0, y: 14.9 },
+  ];
+  return (
+    <group>
+      {windows.map((window) => (
+        <group key={`${side}-${window.z}`} position={[x, window.y, window.z]} rotation={[0, rotationY, 0]}>
+          <mesh>
+            <planeGeometry args={[6.2, 5.6]} />
+            <meshStandardMaterial color="#9ec5d8" roughness={0.35} metalness={0.08} />
+          </mesh>
+          <Line points={[[-3.1, -2.8, 0.04], [3.1, -2.8, 0.04], [3.1, 2.8, 0.04], [-3.1, 2.8, 0.04], [-3.1, -2.8, 0.04]]} color="#f4f7f8" lineWidth={1.7} />
+          <Line points={[[0, -2.8, 0.05], [0, 2.8, 0.05], [-3.1, 0, 0.05], [3.1, 0, 0.05]]} color="#f4f7f8" lineWidth={1.2} />
+        </group>
+      ))}
+    </group>
+  );
+}
+
 function Building() {
   return (
     <group>
@@ -113,6 +136,8 @@ function Building() {
       <SidingLines z={HALF_D + 0.115} rear />
       {siteConfig.facades.front.openings.map((opening) => <Opening key={opening.id} opening={opening} />)}
       {siteConfig.facades.rear.openings.map((opening) => <Opening key={opening.id} opening={opening} />)}
+      <SideWindows side="left" />
+      <SideWindows side="right" />
       <GambrelRoof />
     </group>
   );

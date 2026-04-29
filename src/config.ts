@@ -137,11 +137,11 @@ export const siteConfig = {
       id: "CAM-02",
       target: "Right side corridor — both ends + ground",
       position: [18.35, 15.75, 0] as [number, number, number],
-      rotation: { pitch: -42, yaw: 180 },
-      fov_horizontal: 120,
+      rotation: { pitch: -58, yaw: 180 },
+      fov_horizontal: 140,
       frustum_max_distance_ft: 62,
       lens_mm: 2.8,
-      install_note: "Mid-wall at 15.75 ft. 2.8mm wide lens for the tight ~3 ft gap to the green neighbor.",
+      install_note: "Mid-wall at 15.75 ft. Tilted lower with extra-wide view to cover the lower side wall, both building corners, and the large side windows instead of pointing into the neighbor house.",
     },
     // CAM-03 — Rear (offset to cover service door at x=-13.78)
     {
