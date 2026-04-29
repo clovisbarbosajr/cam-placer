@@ -158,23 +158,23 @@ export const siteConfig = {
     {
       id: "CAM-04",
       target: "Front right after last window — gate + driveway",
-      position: [16.6, 16.0, -28.2] as [number, number, number],
+      position: [-16.6, 16.0, -28.2] as [number, number, number],
       rotation: { pitch: -38, yaw: 0 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 55,
       lens_mm: 2.8,
-      install_note: "Front facade, right side after the last window. 2.8mm captures the wider parking pad, gate, and entry path.",
+      install_note: "Front facade, opposite corner beside the right-side window in the visual reference. 2.8mm captures the wider parking pad, gate, and entry path.",
     },
     // CAM-05 — Tree-mounted (replacing existing camera)
     {
       id: "CAM-05",
       target: "Tree-mounted overview (faces building)",
-      position: [34.0, 18.04, -57.5] as [number, number, number],
+      position: [34.85, 15.35, -56.6] as [number, number, number],
       rotation: { pitch: -27, yaw: 145 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 58,
       lens_mm: 2.8,
-      install_note: "Mounted on tree trunk at 18 ft. 2.8mm wide lens for full front-facade overview + driveway.",
+      install_note: "Mounted visibly on the tree trunk below the green canopy. 2.8mm wide lens for full front-facade overview + driveway.",
     },
   ] as CameraConfig[],
 } as const;
