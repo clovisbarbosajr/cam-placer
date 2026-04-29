@@ -241,10 +241,38 @@ function BoundaryGuides() {
           <meshStandardMaterial color="#587a4a" roughness={0.95} transparent opacity={0.18} depthWrite={false} />
         </mesh>
       ))}
+      <group position={[0, 2.5, 44.6]}>
+        <Line points={[[-31, 2.38, 0], [31, 2.38, 0], [31, -2.38, 0], [-31, -2.38, 0], [-31, 2.38, 0]]} color="#c7d0d6" lineWidth={1.8} />
+        {Array.from({ length: 18 }, (_, i) => -30 + i * 3.5).map((x) => (
+          <Box key={`rear-post-${x}`} args={[0.16, 5.2, 0.16]} position={[x, 0, 0]}>
+            <meshStandardMaterial color="#b9c2c8" roughness={0.55} />
+          </Box>
+        ))}
+        {Array.from({ length: 18 }, (_, i) => -31 + i * 3.6).map((x) => (
+          <Line key={`rear-fence-x-${x}`} points={[[x, -2.38, 0.04], [Math.min(x + 3.6, 31), 2.38, 0.04]]} color="#9da9b0" lineWidth={0.75} transparent opacity={0.86} />
+        ))}
+      </group>
       <group position={[0, 7.1, rearZ]}>
         <Box args={[54, 14.2, 10]} castShadow receiveShadow>
-          <meshStandardMaterial color="#8b938f" roughness={0.86} transparent opacity={0.68} />
+          <meshStandardMaterial color="#8b938f" roughness={0.86} transparent opacity={0.76} />
         </Box>
+        {[-14, 0, 14].map((x) => (
+          <group key={`rear-house-window-${x}`} position={[x, 2.2, -5.15]}>
+            <mesh>
+              <planeGeometry args={[5.0, 3.6]} />
+              <meshStandardMaterial color="#bcd4dd" roughness={0.35} metalness={0.08} />
+            </mesh>
+            <Line points={[[-2.5, -1.8, 0.03], [2.5, -1.8, 0.03], [2.5, 1.8, 0.03], [-2.5, 1.8, 0.03], [-2.5, -1.8, 0.03]]} color="#eef2f4" lineWidth={1.3} />
+            <Line points={[[0, -1.8, 0.04], [0, 1.8, 0.04], [-2.5, 0, 0.04], [2.5, 0, 0.04]]} color="#eef2f4" lineWidth={0.9} />
+          </group>
+        ))}
+        <group position={[-23, -2.0, -5.16]}>
+          <mesh>
+            <planeGeometry args={[4.4, 7.6]} />
+            <meshStandardMaterial color="#5d4a36" roughness={0.65} />
+          </mesh>
+          <Line points={[[-2.2, -3.8, 0.03], [2.2, -3.8, 0.03], [2.2, 3.8, 0.03], [-2.2, 3.8, 0.03], [-2.2, -3.8, 0.03]]} color="#eef2f4" lineWidth={1.2} />
+        </group>
         <Box args={[24, 7.2, 0.22]} position={[0, -2.5, -5.15]}>
           <meshStandardMaterial color="#b7c0c5" roughness={0.55} />
         </Box>
