@@ -85,13 +85,16 @@ export const siteConfig = {
     },
   },
   environment: {
-    front_perimeter_fence: { z: -66.0, width_ft: 92.0, height_ft: 4.76, gate_width_ft: 46.0 },
+    front_perimeter_fence: { z: -66.0, width_ft: 82.0, height_ft: 4.76, gate_width_ft: 46.0 },
+    side_property_lines: { west_x: -41.0, east_x: 41.0 },
     front_obstacles: [
       { id: "front-yard-tree", type: "tree", position: [34.0, 0, -57.5] as [number, number, number], radius_ft: 5.8, height_ft: 27.89 },
     ],
     neighbors: [
-      { id: "west-neighbor", color: "gray", position: [-30.18, 10.5, -1.31] as [number, number, number], size: [14.44, 21.0, 51.18] as [number, number, number] },
-      { id: "east-green-neighbor", color: "green", position: [29.53, 10.17, -0.66] as [number, number, number], size: [15.09, 20.34, 49.21] as [number, number, number] },
+      { id: "west-neighbor-front", color: "gray", position: [-49.0, 10.5, -15.0] as [number, number, number], size: [14.0, 21.0, 23.5] as [number, number, number] },
+      { id: "west-neighbor-rear", color: "gray", position: [-49.0, 10.0, 16.5] as [number, number, number], size: [13.2, 20.0, 22.0] as [number, number, number] },
+      { id: "east-green-neighbor-front", color: "green", position: [49.0, 10.17, -15.0] as [number, number, number], size: [14.0, 20.34, 23.5] as [number, number, number] },
+      { id: "east-green-neighbor-rear", color: "green", position: [49.0, 9.9, 16.5] as [number, number, number], size: [13.2, 19.8, 22.0] as [number, number, number] },
     ],
     street: {
       // Dewey St runs along the front of the building (parallel to X axis)
