@@ -206,11 +206,12 @@ function Fence() {
   const halfFence = fence.width_ft / 2;
   const halfGate = gateWidth / 2;
   const fenceSections: [number, number][] = [[-halfFence, -halfGate], [halfGate, halfFence]];
-  const posts = [-halfGate, halfGate, ...fenceSections.flatMap(([start, end]) => Array.from({ length: 4 }, (_, i) => start + (i * (end - start)) / 3))];
+  const posts = Array.from(new Set([-halfGate, halfGate, ...fenceSections.flatMap(([start, end]) => Array.from({ length: 4 }, (_, i) => Number((start + (i * (end - start)) / 3).toFixed(2))))]));
   return (
     <group position={[0, fence.height_ft / 2, fence.z]}>
       {fenceSections.map(([start, end]) => <Line key={`${start}-${end}`} points={[[start, fence.height_ft / 2, 0], [end, fence.height_ft / 2, 0], [end, -fence.height_ft / 2, 0], [start, -fence.height_ft / 2, 0], [start, fence.height_ft / 2, 0]]} color="#c7d0d6" lineWidth={2} />)}
       {posts.map((x) => <Box key={x} args={[0.16, fence.height_ft + 0.82, 0.16]} position={[x, 0, 0]}><meshStandardMaterial color="#b9c2c8" /></Box>)}
+      {gateWidth > 0 && <Line points={[[-halfGate, -fence.height_ft / 2, 0.06], [halfGate, -fence.height_ft / 2, 0.06]]} color="#d7e0e6" lineWidth={2} transparent opacity={0.75} />}
       {fenceSections.flatMap(([start, end]) => Array.from({ length: Math.max(3, Math.ceil((end - start) / 1.8)) }, (_, i) => start + i * 1.8).map((x) => <Line key={`a-${start}-${x}`} points={[[x, -fence.height_ft / 2, 0.03], [Math.min(x + 1.8, end), fence.height_ft / 2, 0.03]]} color="#9da9b0" lineWidth={0.6} />))}
       {fenceSections.flatMap(([start, end]) => Array.from({ length: Math.max(3, Math.ceil((end - start) / 1.8)) }, (_, i) => start + i * 1.8).map((x) => <Line key={`b-${start}-${x}`} points={[[x, fence.height_ft / 2, 0.04], [Math.min(x + 1.8, end), -fence.height_ft / 2, 0.04]]} color="#9da9b0" lineWidth={0.6} />))}
     </group>
