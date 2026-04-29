@@ -85,9 +85,9 @@ export const siteConfig = {
     },
   },
   environment: {
-    front_perimeter_fence: { z: -57.0, width_ft: 86.0, height_ft: 4.76, gate_width_ft: 42.0 },
+    front_perimeter_fence: { z: -66.0, width_ft: 92.0, height_ft: 4.76, gate_width_ft: 46.0 },
     front_obstacles: [
-      { id: "front-yard-tree", type: "tree", position: [31.0, 0, -50.5] as [number, number, number], radius_ft: 5.8, height_ft: 27.89 },
+      { id: "front-yard-tree", type: "tree", position: [34.0, 0, -57.5] as [number, number, number], radius_ft: 5.8, height_ft: 27.89 },
     ],
     neighbors: [
       { id: "west-neighbor", color: "gray", position: [-30.18, 10.5, -1.31] as [number, number, number], size: [14.44, 21.0, 51.18] as [number, number, number] },
@@ -95,26 +95,26 @@ export const siteConfig = {
     ],
     street: {
       // Dewey St runs along the front of the building (parallel to X axis)
-      z_center: -74.5,
+      z_center: -84.0,
       width_ft: 19,
       length_ft: 200,
     },
     sidewalk: {
-      z_center: -61.0,
+      z_center: -71.0,
       width_ft: 6,
       length_ft: 200,
     },
     driveway: {
-      z_min: -56.2,
-      z_max: -28.2,
-      width_ft: 68.0,
+      z_min: -64.5,
+      z_max: -30.2,
+      width_ft: 76.0,
     },
     pedestrians: [
-      { id: "ped-walker", type: "person", position: [11.48, 0, -62.8], rotation_y: -1.2, color: "#3a5a7a", variant: "walker" },
-      { id: "ped-dog", type: "dog", position: [15.09, 0, -62.0], rotation_y: -1.2, color: "#a07a4a" },
-      { id: "ped-standing", type: "person", position: [-22.5, 0, -48.5], rotation_y: 0.4, color: "#7a3a3a", variant: "standing" },
-      { id: "car-driveway-left", type: "car", position: [-8.6, 0, -42.0], rotation_y: 0, color: "#2c3e50" },
-      { id: "car-driveway-right", type: "car", position: [8.6, 0, -42.0], rotation_y: 0, color: "#42515f" },
+      { id: "ped-walker", type: "person", position: [11.48, 0, -72.8], rotation_y: -1.2, color: "#3a5a7a", variant: "walker" },
+      { id: "ped-dog", type: "dog", position: [15.09, 0, -72.0], rotation_y: -1.2, color: "#a07a4a" },
+      { id: "ped-standing", type: "person", position: [-26.5, 0, -58.0], rotation_y: 0.4, color: "#7a3a3a", variant: "standing" },
+      { id: "car-driveway-left", type: "car", position: [-10.5, 0, -49.2], rotation_y: 0, color: "#2c3e50" },
+      { id: "car-driveway-right", type: "car", position: [10.5, 0, -49.2], rotation_y: 0, color: "#42515f" },
     ] as PedestrianConfig[],
   },
   cameras: [
@@ -154,19 +154,19 @@ export const siteConfig = {
     // CAM-04 — Front, over the garage door (right side)
     {
       id: "CAM-04",
-      target: "Front gate, driveway, over garage",
-      position: [0, 16.0, -28.2] as [number, number, number],
+      target: "Front right after last window — gate + driveway",
+      position: [16.6, 16.0, -28.2] as [number, number, number],
       rotation: { pitch: -38, yaw: 0 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 55,
       lens_mm: 2.8,
-      install_note: "Right side over garage at 14.76 ft. 4mm captures faces clearly at vehicle entry (DORI Identify ~36 ft).",
+      install_note: "Front facade, right side after the last window. 2.8mm captures the wider parking pad, gate, and entry path.",
     },
     // CAM-05 — Tree-mounted (replacing existing camera)
     {
       id: "CAM-05",
       target: "Tree-mounted overview (faces building)",
-      position: [31.0, 18.04, -50.5] as [number, number, number],
+      position: [34.0, 18.04, -57.5] as [number, number, number],
       rotation: { pitch: -27, yaw: 145 },
       fov_horizontal: 102,
       frustum_max_distance_ft: 58,
