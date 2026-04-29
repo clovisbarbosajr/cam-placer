@@ -95,8 +95,8 @@ export const siteConfig = {
     ],
     street: {
       // Dewey St runs along the front of the building (parallel to X axis)
-      z_center: -52.5,
-      width_ft: 23,
+      z_center: -74.5,
+      width_ft: 19,
       length_ft: 200,
     },
     sidewalk: {
