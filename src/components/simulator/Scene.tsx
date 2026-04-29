@@ -576,7 +576,7 @@ function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; se
         <meshStandardMaterial color={selected ? "#38bdf8" : "#dde2e6"} roughness={0.4} />
       </Box>
       <Html position={[0, 1.48, 0]} center distanceFactor={40}>
-        <span className={`whitespace-nowrap rounded-md border px-2 py-1 text-xs font-bold shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
+        <span className={`inline-flex min-w-14 items-center justify-center whitespace-nowrap rounded-md border px-2 py-1 text-xs font-black leading-none shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
       </Html>
     </group>
   );
