@@ -466,8 +466,8 @@ function Frustum({ camera, dim = false }: { camera: CameraConfig; dim?: boolean 
     [-halfW, halfH, -distance],
   ];
   const segments = [[0, 1], [1, 2], [2, 3], [3, 0]].map(([a, b]) => [corners[a], corners[b]]).flat() as [number, number, number][];
-  const color = dim ? "#7a6840" : "#ffc857";
-  const opacity = dim ? 0.35 : 0.95;
+  const color = dim ? "#4f6f7f" : "#38bdf8";
+  const opacity = dim ? 0.26 : 0.88;
   return (
     <group position={camera.position} rotation={cameraEuler(camera)}>
       {corners.map((corner, i) => (
@@ -515,7 +515,7 @@ function CoverageGroundFootprint({ camera }: { camera: CameraConfig }) {
   }, [camera, halfW, halfH, distance]);
 
   if (!points) return null;
-  return <Line points={points} color="#ffc857" lineWidth={2.2} transparent opacity={0.85} />;
+  return <Line points={points} color="#38bdf8" lineWidth={2.2} transparent opacity={0.78} />;
 }
 
 function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; selected: boolean; hidden: boolean }) {
