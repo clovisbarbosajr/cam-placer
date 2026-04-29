@@ -128,6 +128,7 @@ function Ground() {
   const driveway = siteConfig.environment.driveway;
   const drivewayCenterZ = (driveway.z_min + driveway.z_max) / 2;
   const drivewayDepth = driveway.z_max - driveway.z_min;
+  const parkingLines = [-17, 0, 17];
 
   const asphaltTexture = useMemo(() => {
     const size = 256;
@@ -171,31 +172,23 @@ function Ground() {
         <meshStandardMaterial color="#a8aaa6" roughness={0.85} />
       </mesh>
 
-      {/* Driveway (asphalt area inside the front fence) */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, drivewayCenterZ]} receiveShadow>
-        <planeGeometry args={[driveway.width_ft, drivewayDepth]} />
-        <meshStandardMaterial map={asphaltTexture} color="#52575c" roughness={0.92} />
-      </mesh>
-
-      {/* Front garden strips like the reference photos: fence -> house gives scale */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-34, 0.025, -35.4]} receiveShadow>
-        <planeGeometry args={[12, 12.5]} />
-        <meshStandardMaterial color="#315b2d" roughness={0.95} />
-      </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[34, 0.025, -35.4]} receiveShadow>
-        <planeGeometry args={[12, 12.5]} />
-        <meshStandardMaterial color="#315b2d" roughness={0.95} />
-      </mesh>
-
       {/* Side strips (gravel / packed dirt) between building and neighbors */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-23.6, 0.012, 0]} receiveShadow>
-        <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
+        <planeGeometry args={[11.5, BUILDING.depth_ft]} />
         <meshStandardMaterial color="#6d6258" roughness={0.95} />
       </mesh>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[23.6, 0.012, 0]} receiveShadow>
-        <planeGeometry args={[11.5, BUILDING.depth_ft + 13]} />
+        <planeGeometry args={[11.5, BUILDING.depth_ft]} />
         <meshStandardMaterial color="#6d6258" roughness={0.95} />
       </mesh>
+
+      {/* Wide two-car parking pad: house first, then cars, then gate, then sidewalk/street */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.04, drivewayCenterZ]} receiveShadow>
+        <planeGeometry args={[driveway.width_ft, drivewayDepth]} />
+        <meshStandardMaterial map={asphaltTexture} color="#52575c" roughness={0.92} />
+      </mesh>
+      <Line points={[[-driveway.width_ft / 2, 0.09, driveway.z_min], [driveway.width_ft / 2, 0.09, driveway.z_min], [driveway.width_ft / 2, 0.09, driveway.z_max], [-driveway.width_ft / 2, 0.09, driveway.z_max], [-driveway.width_ft / 2, 0.09, driveway.z_min]]} color="#d7e0e6" lineWidth={1.8} transparent opacity={0.86} />
+      {parkingLines.map((x) => <Line key={x} points={[[x, 0.1, driveway.z_min + 2], [x, 0.1, driveway.z_max - 1.5]]} color="#e4e8dc" lineWidth={1.4} transparent opacity={0.92} />)}
 
       {/* Rear yard and rear reference building so camera POVs never start on empty grass */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 43.8]} receiveShadow>
