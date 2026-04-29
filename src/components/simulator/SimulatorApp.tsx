@@ -121,6 +121,28 @@ function TopBar() {
   );
 }
 
+function MobileCameraStrip() {
+  const cameras = useCameraStore((state) => state.cameras);
+  const selectedCameraId = useCameraStore((state) => state.selectedCameraId);
+  const selectCamera = useCameraStore((state) => state.selectCamera);
+
+  return (
+    <div className="flex gap-2 overflow-x-auto border-b border-border bg-card/85 px-3 py-2 backdrop-blur xl:hidden">
+      {cameras.map((camera) => (
+        <Button
+          key={camera.id}
+          size="sm"
+          variant={camera.id === selectedCameraId ? "default" : "outline"}
+          className="shrink-0 px-3 font-mono text-xs font-bold"
+          onClick={() => selectCamera(camera.id)}
+        >
+          {camera.id.replace("CAM-", "C")}
+        </Button>
+      ))}
+    </div>
+  );
+}
+
 function Minimap() {
   const cameras = useCameraStore((state) => state.cameras);
   const selectedId = useCameraStore((state) => state.selectedCameraId);
@@ -164,6 +186,7 @@ export function SimulatorApp() {
       <LeftSidebar />
       <section className="relative flex min-w-0 flex-1 flex-col">
         <TopBar />
+        <MobileCameraStrip />
         <div className="relative min-h-0 flex-1">
           <SecurityScene />
           <Minimap />
