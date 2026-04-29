@@ -85,7 +85,7 @@ export const siteConfig = {
     },
   },
   environment: {
-    front_perimeter_fence: { z: -37.4, width_ft: 43.3, height_ft: 4.76 },
+    front_perimeter_fence: { z: -37.4, width_ft: 52.0, height_ft: 4.76, gate_width_ft: 22.0 },
     front_obstacles: [
       { id: "street-tree", type: "tree", position: [-22.64, 0, -40.03] as [number, number, number], radius_ft: 7.87, height_ft: 27.89 },
     ],
@@ -107,7 +107,7 @@ export const siteConfig = {
     driveway: {
       z_min: -37.4,
       z_max: -28.2,
-      width_ft: 39.4,
+      width_ft: 44.0,
     },
     pedestrians: [
       { id: "ped-walker", type: "person", position: [11.48, 0, -44.29], rotation_y: -1.2, color: "#3a5a7a", variant: "walker" },
