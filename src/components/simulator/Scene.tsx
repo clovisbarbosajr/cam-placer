@@ -438,12 +438,14 @@ function Pedestrians() {
 }
 
 function Environment() {
+  const viewMode = useCameraStore((state) => state.viewMode);
+  const makeNeighborsTransparent = viewMode === "orbit";
   return (
     <group>
       <Ground />
       <Fence />
       {siteConfig.environment.front_obstacles.map((tree) => <Tree key={tree.id} tree={tree} />)}
-      {siteConfig.environment.neighbors.map((neighbor) => <NeighborHouse key={neighbor.id} neighbor={neighbor} />)}
+      {siteConfig.environment.neighbors.map((neighbor) => <NeighborHouse key={neighbor.id} neighbor={neighbor} transparent={makeNeighborsTransparent} />)}
       <Pedestrians />
     </group>
   );
