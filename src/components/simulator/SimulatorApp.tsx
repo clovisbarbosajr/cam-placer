@@ -65,31 +65,31 @@ function RightSidebar() {
   const updateFov = (fov_horizontal: number) => updateCamera(camera.id, { fov_horizontal });
 
   return (
-    <aside className="w-full border-t border-border bg-card/85 p-4 backdrop-blur lg:w-80 lg:border-l lg:border-t-0">
-      <div className="mb-4 flex items-start justify-between gap-3">
+    <aside className="max-h-[42dvh] w-full overflow-y-auto border-t border-border bg-card/90 p-3 backdrop-blur lg:max-h-none lg:w-80 lg:border-l lg:border-t-0 lg:p-4">
+      <div className="mb-3 flex items-start justify-between gap-3 lg:mb-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">Active camera</p>
-          <h2 className="mt-1 flex items-center gap-2 text-xl font-bold text-foreground"><SlidersHorizontal className="size-5 text-primary" />{camera.id}</h2>
+          <h2 className="mt-1 flex items-center gap-2 text-lg font-bold text-foreground lg:text-xl"><SlidersHorizontal className="size-5 text-primary" />{camera.id}</h2>
           <p className="mt-1 text-sm text-muted-foreground">{camera.target}</p>
           <p className="mt-1 font-mono text-[10px] text-muted-foreground/80">{camera.lens_mm}mm lens · {camera.fov_horizontal}° HFOV</p>
         </div>
       </div>
       {camera.install_note && (
-        <div className="mb-3 rounded-lg border border-primary/30 bg-primary/5 p-3 text-xs leading-relaxed text-muted-foreground">
+        <div className="mb-3 hidden rounded-lg border border-primary/30 bg-primary/5 p-3 text-xs leading-relaxed text-muted-foreground sm:block">
           <span className="font-semibold text-primary">Install:</span> {camera.install_note}
         </div>
       )}
-      <div className="grid gap-3">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 lg:gap-3">
         <SliderControl label="Height Y" value={camera.position[1]} min={7} max={31} step={0.1} suffix=" ft" onChange={updatePositionY} />
         <SliderControl label="Yaw" value={camera.rotation.yaw} min={-180} max={180} suffix="°" onChange={updateYaw} />
         <SliderControl label="Pitch" value={camera.rotation.pitch} min={-65} max={18} suffix="°" onChange={updatePitch} />
         <SliderControl label="FOV" value={camera.fov_horizontal} min={35} max={120} suffix="°" onChange={updateFov} />
       </div>
-      <div className="mt-4 grid gap-1 rounded-lg border border-border bg-secondary/40 p-3 font-mono text-xs text-muted-foreground">
+      <div className="mt-3 grid gap-1 rounded-lg border border-border bg-secondary/40 p-2 font-mono text-[10px] text-muted-foreground lg:mt-4 lg:p-3 lg:text-xs">
         <span>pos: [{camera.position.map((value) => value.toFixed(2)).join(", ")}] ft</span>
         <span>range: {camera.frustum_max_distance_ft.toFixed(0)} ft</span>
       </div>
-      <Button className="mt-4 w-full" onClick={exportConfig}>
+      <Button className="mt-3 w-full lg:mt-4" onClick={exportConfig}>
         <Download className="size-4" /> Export config
       </Button>
     </aside>
@@ -102,17 +102,17 @@ function TopBar() {
   const showAllFrustums = useCameraStore((state) => state.showAllFrustums);
   const toggleShowAllFrustums = useCameraStore((state) => state.toggleShowAllFrustums);
   return (
-    <header className="flex h-16 items-center justify-between border-b border-border bg-card/90 px-4 backdrop-blur">
-      <div>
-        <h1 className="text-lg font-black tracking-tight text-foreground sm:text-2xl">3D Security Camera Placement Simulator</h1>
+    <header className="flex flex-col gap-2 border-b border-border bg-card/90 px-3 py-2 backdrop-blur sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:px-4 sm:py-0">
+      <div className="min-w-0">
+        <h1 className="truncate text-base font-black tracking-tight text-foreground sm:text-2xl">3D Security Camera Placement Simulator</h1>
         <p className="hidden text-xs text-muted-foreground sm:block">{siteConfig.address} · {siteConfig.camera_model} · all measurements in feet</p>
       </div>
-      <div className="flex items-center gap-2">
-        <Button size="sm" variant={showAllFrustums ? "default" : "outline"} onClick={toggleShowAllFrustums} title="Show all camera frustums (only active in Orbit View)">
+      <div className="flex w-full items-center gap-2 overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0">
+        <Button className="shrink-0" size="sm" variant={showAllFrustums ? "default" : "outline"} onClick={toggleShowAllFrustums} title="Show all camera frustums (only active in Orbit View)">
           {showAllFrustums ? <Eye className="size-4" /> : <EyeOff className="size-4" />}
           <span className="hidden sm:inline">{showAllFrustums ? "All frustums" : "Only selected"}</span>
         </Button>
-        <div className="flex rounded-lg border border-border bg-secondary p-1">
+        <div className="flex shrink-0 rounded-lg border border-border bg-secondary p-1">
           <Button size="sm" variant={viewMode === "orbit" ? "default" : "ghost"} onClick={() => setViewMode("orbit")}><RotateCcw className="size-4" /> Orbit View</Button>
           <Button size="sm" variant={viewMode === "pov" ? "default" : "ghost"} onClick={() => setViewMode("pov")}><Eye className="size-4" /> POV View</Button>
         </div>
@@ -160,7 +160,7 @@ function Minimap() {
 
 export function SimulatorApp() {
   return (
-    <main className="flex h-screen overflow-hidden bg-background text-foreground">
+    <main className="flex h-[100dvh] flex-col overflow-hidden bg-background text-foreground lg:flex-row">
       <LeftSidebar />
       <section className="relative flex min-w-0 flex-1 flex-col">
         <TopBar />
