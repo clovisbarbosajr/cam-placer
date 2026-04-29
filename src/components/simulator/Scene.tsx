@@ -567,7 +567,7 @@ function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; se
     <group position={camera.position} rotation={cameraEuler(camera)} onClick={(event) => { event.stopPropagation(); selectCamera(camera.id, "pov"); }}>
       {/* Hikvision bullet body */}
       <Box args={[1.25, 0.82, 2.03]} position={[0, 0, -0.59]} castShadow>
-        <meshStandardMaterial color={selected ? "#ffd166" : "#e9eef2"} roughness={0.3} metalness={0.18} />
+        <meshStandardMaterial color={selected ? "#38bdf8" : "#e9eef2"} roughness={0.3} metalness={0.18} />
       </Box>
       {/* Lens housing */}
       <Box args={[0.52, 0.52, 0.66]} position={[0, 0, -1.90]}>
@@ -575,10 +575,10 @@ function SecurityCamera({ camera, selected, hidden }: { camera: CameraConfig; se
       </Box>
       {/* Mounting arm */}
       <Box args={[0.18, 0.4, 0.18]} position={[0, 0.6, 0.3]}>
-        <meshStandardMaterial color={selected ? "#ffd166" : "#dde2e6"} roughness={0.4} />
+        <meshStandardMaterial color={selected ? "#38bdf8" : "#dde2e6"} roughness={0.4} />
       </Box>
       <Html position={[0, 1.48, 0]} center distanceFactor={40}>
-        <span className={`rounded-md border px-2 py-1 text-xs font-semibold shadow-sm ${selected ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
+        <span className={`whitespace-nowrap rounded-md border px-2 py-1 text-xs font-bold shadow-sm ${selected ? "border-primary bg-card text-primary" : "border-border bg-card/90 text-foreground"}`}>{camera.id}</span>
       </Html>
     </group>
   );
