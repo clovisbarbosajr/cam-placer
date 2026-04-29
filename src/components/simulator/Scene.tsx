@@ -485,6 +485,7 @@ function Environment() {
     <group>
       <Ground />
       <Fence />
+      <BoundaryGuides />
       {siteConfig.environment.front_obstacles.map((tree) => <Tree key={tree.id} tree={tree} />)}
       {siteConfig.environment.neighbors.map((neighbor) => <NeighborHouse key={neighbor.id} neighbor={neighbor} transparent={makeNeighborsTransparent} />)}
       <Pedestrians />
