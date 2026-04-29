@@ -191,6 +191,11 @@ function Ground() {
       {parkingLines.map((x) => <Line key={x} points={[[x, 0.1, driveway.z_min + 2], [x, 0.1, driveway.z_max - 1.5]]} color="#e4e8dc" lineWidth={1.4} transparent opacity={0.92} />)}
 
       {/* Rear yard and rear reference building so camera POVs never start on empty grass */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.045, 36.4]} receiveShadow>
+        <planeGeometry args={[42, 13]} />
+        <meshStandardMaterial color="#8f8b82" roughness={0.88} />
+      </mesh>
+      <Line points={[[-21, 0.1, 29.9], [21, 0.1, 29.9], [21, 0.1, 42.9], [-21, 0.1, 42.9], [-21, 0.1, 29.9]]} color="#d7e0e6" lineWidth={1.3} transparent opacity={0.72} />
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 43.8]} receiveShadow>
         <planeGeometry args={[58, 20]} />
         <meshStandardMaterial color="#355f31" roughness={0.95} />
