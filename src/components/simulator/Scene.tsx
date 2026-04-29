@@ -224,6 +224,31 @@ function Fence() {
   );
 }
 
+function BoundaryGuides() {
+  const frontFence = siteConfig.environment.front_perimeter_fence;
+  const rearZ = HALF_D + 26;
+  const sideXs = [-frontFence.width_ft / 2, frontFence.width_ft / 2];
+  return (
+    <group>
+      {sideXs.map((x) => (
+        <group key={x} position={[x, frontFence.height_ft / 2, (frontFence.z + rearZ) / 2]}>
+          <Line points={[[0, frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#c7d0d6" lineWidth={1.6} />
+          <Line points={[[0, -frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#9da9b0" lineWidth={0.8} transparent opacity={0.75} />
+          <Line points={[[0, frontFence.height_ft / 2, -(rearZ - frontFence.z) / 2], [0, -frontFence.height_ft / 2, (rearZ - frontFence.z) / 2]]} color="#9da9b0" lineWidth={0.8} transparent opacity={0.75} />
+        </group>
+      ))}
+      <group position={[0, 7.1, rearZ]}>
+        <Box args={[54, 14.2, 10]} castShadow receiveShadow>
+          <meshStandardMaterial color="#8b938f" roughness={0.86} transparent opacity={0.68} />
+        </Box>
+        <Box args={[24, 7.2, 0.22]} position={[0, -2.5, -5.15]}>
+          <meshStandardMaterial color="#b7c0c5" roughness={0.55} />
+        </Box>
+      </group>
+    </group>
+  );
+}
+
 function Tree({ tree }: { tree: typeof siteConfig.environment.front_obstacles[number] }) {
   return (
     <group position={tree.position}>
