@@ -60,7 +60,7 @@ export const siteConfig = {
     front: {
       z: -28.2,
       openings: [
-        { id: "front-garage", type: "garage", facade: "front", x: 0, y: 4.76, width: 18.4, height: 9.0 },
+        { id: "front-garage", type: "garage", facade: "front", x: 0, y: 4.76, width: 24.0, height: 9.0 },
         { id: "front-l2-left", type: "window", facade: "front", x: -12.1, y: 15.75, width: 4.1, height: 5.4 },
         { id: "front-l2-mid", type: "window", facade: "front", x: 0, y: 15.75, width: 5.4, height: 4.4 },
         { id: "front-l2-right", type: "window", facade: "front", x: 12.3, y: 15.75, width: 5.4, height: 4.4 },
@@ -85,7 +85,7 @@ export const siteConfig = {
     },
   },
   environment: {
-    front_perimeter_fence: { z: -37.4, width_ft: 52.0, height_ft: 4.76, gate_width_ft: 22.0 },
+    front_perimeter_fence: { z: -37.4, width_ft: 58.0, height_ft: 4.76, gate_width_ft: 26.0 },
     front_obstacles: [
       { id: "street-tree", type: "tree", position: [-22.64, 0, -40.03] as [number, number, number], radius_ft: 7.87, height_ft: 27.89 },
     ],
@@ -107,7 +107,7 @@ export const siteConfig = {
     driveway: {
       z_min: -37.4,
       z_max: -28.2,
-      width_ft: 44.0,
+      width_ft: 48.0,
     },
     pedestrians: [
       { id: "ped-walker", type: "person", position: [11.48, 0, -44.29], rotation_y: -1.2, color: "#3a5a7a", variant: "walker" },
